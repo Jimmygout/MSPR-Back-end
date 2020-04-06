@@ -9,6 +9,12 @@ easy_admin:
               favicon: 'https://www.vippng.com/png/detail/44-447021_icon-guitar.png'
         brand_color : red
         menu:
+            - label: 'Utilisateur'
+              icon: 'users-cog'
+              children:
+                  - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs administration'}
+                  - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs'}
+
             - label: 'Environnement'
               icon: 'fas fa-map-marked-alt'
               children:
@@ -72,7 +78,7 @@ easy_admin:
                     - dateDebut
                     - dateFin
               sort: ['dateDebut', 'ASC']
-              
+
         Evenement:
             class: App\Entity\Evenement
         StandInformation:
@@ -98,3 +104,13 @@ easy_admin:
         ReseauxSociaux:
             class: App\Entity\ReseauxSociaux
             # ------------ Fin Element --------------
+
+        UserSite:
+            class: App\Entity\User
+            list:
+                dql_filter: "entity.source = 'Site Web'"
+
+        UserAppli:
+            class: App\Entity\User
+            list:
+                dql_filter: "entity.source != 'Site Web'"
