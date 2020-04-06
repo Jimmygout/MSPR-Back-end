@@ -1,0 +1,62 @@
+easy_admin:
+    design:
+        menu:
+            - label: 'Environnement'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: Map}
+                  - {entity: Buvette}
+                  - {entity: Parking}
+                  - {entity: Boutique}
+                  - {entity: Concert}
+                  - {entity: Evenement}
+                  - {entity: StandInformation}
+                  - {entity: Wc}
+                  - {entity: ObjetPerdu}
+
+            - label: 'Elements'
+              icon: 'newspaper-o'
+              children:
+                  - {entity: Billeterie}
+                  - {entity: Faq}
+                  - {entity: InformationGenerale}
+                  - {entity: InformationUrgente}
+                  - {entity: Partenaire}
+
+    entities:
+      # ------------ Environnement--------------
+        Map:
+            class: App\Entity\Map
+        Buvette:
+            class: App\Entity\Buvette
+        Parking:
+            class: App\Entity\Parking
+        Billetterie:
+            class: App\Entity\Billetterie
+        Boutique:
+            class: App\Entity\Boutique
+        Concert:
+            class: App\Entity\Concert
+        Evenement:
+            class: App\Entity\Evenement
+        StandInformation:
+            class: App\Entity\StandInformation
+        Wc:
+            class: App\Entity\Wc
+        ObjetPerdu:
+            class: App\Entity\ObjetPerdu
+        
+            # ------------Fin Environnement--------------
+
+            # ------------ Element --------------
+        Billeterie:
+            class: App\Entity\Billetterie
+        Faq:
+            class: App\Entity\Faq
+        InformationGenerale:
+            class: App\Entity\InformationGenerale
+        InformationUrgente:
+            class: App\Entity\InformationUrgente
+        Partenaire:
+            class: App\Entity\Partenaire
+            # ------------ Fin Element --------------
