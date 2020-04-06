@@ -138,11 +138,6 @@ class Wc
         return $this;
     }
 
-    public function __toString(): string
-    {
-        return $this->titre;
-    }
-
     public function getLongitude(): ?string
     {
         return $this->Longitude;
@@ -178,5 +173,8 @@ class Wc
 
         return $this;
     }
-
+    public function __toString(): string
+    {
+        return $this->titre;
+    }
 }

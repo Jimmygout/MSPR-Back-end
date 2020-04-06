@@ -1,32 +1,62 @@
 easy_admin:
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+    site_name : 'MSPR <em style="font-size:80%">Back-end</em>'
     design:
+        assets:
+              favicon: 'https://www.vippng.com/png/detail/44-447021_icon-guitar.png'
+        brand_color : red
         menu:
             - label: 'Environnement'
-              icon: 'newspaper-o'
+              icon: 'fas fa-map-marked-alt'
               children:
-                  - {entity: Map}
-                  - {entity: Buvette}
-                  - {entity: Parking}
-                  - {entity: Boutique}
-                  - {entity: Concert}
-                  - {entity: Evenement}
-                  - {entity: StandInformation}
-                  - {entity: Wc}
-                  - {entity: ObjetPerdu}
+                  - {entity: Map , icon: 'map-marker-alt', label: 'Carte'}
+                  - {entity: Buvette , icon: 'glass-cheers' , label: 'Buvettes'}
+                  - {entity: Parking , icon: 'parking' , label: 'Parkings'}
+                  - {entity: Boutique , icon: 'shopping-basket' , label: 'Boutiques'}
+                  - {entity: Concert , icon: 'music' , label: 'Concerts'}
+                  - {entity: Evenement , icon: 'calendar-alt' , label: 'Evenements'}
+                  - {entity: StandInformation , icon: 'info-circle' , label: "Stands d'informations"}
+                  - {entity: Wc , icon: 'restroom' , label: 'Toilettes'}
+                  - {entity: ObjetPerdu , icon: 'umbrella' , label: 'Objets perdus'}
 
-            - label: 'Elements'
-              icon: 'newspaper-o'
+            - label: 'Informations'
+              icon: 'info'
               children:
-                  - {entity: Billeterie}
-                  - {entity: Faq}
-                  - {entity: InformationGenerale}
-                  - {entity: InformationUrgente}
-                  - {entity: Partenaire}
+                  - {entity: InformationGenerale , icon: 'question-circle' , label: 'Informations générale'}
+                  - {entity: InformationUrgente , icon: 'exclamation-triangle' , label: 'Informations Urgente'}
+              
+            - label: 'Elements'
+              icon: 'hand-middle-finger'
+              children:
+                  - {entity: Billeterie , icon: 'credit-card' , label: 'Billeterie'}
+                  - {entity: Faq , icon: 'question' , label: 'FAQ'}
+                  - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
+                  - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}
 
     entities:
       # ------------ Environnement--------------
         Map:
-            class: App\Entity\Map
+            class: App\Entity\Map      
+            label: 'une carte'
+            list:
+                fields:
+                    - parking           
+                    - boutique           
+                    - Wc           
+                    - Evenement           
+                    - Concert           
+                    - { property: objetPerdu , label: "Objets perdus" }          
+                    - { property: standInformation , label: "Stands d'informations" }           
+                    - buvette
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                title: "Elements de la carte"
+
+
         Buvette:
             class: App\Entity\Buvette
         Parking:
@@ -37,6 +67,12 @@ easy_admin:
             class: App\Entity\Boutique
         Concert:
             class: App\Entity\Concert
+            list:
+              fields:
+                    - dateDebut
+                    - dateFin
+              sort: ['dateDebut', 'ASC']
+              
         Evenement:
             class: App\Entity\Evenement
         StandInformation:
@@ -59,4 +95,6 @@ easy_admin:
             class: App\Entity\InformationUrgente
         Partenaire:
             class: App\Entity\Partenaire
+        ReseauxSociaux:
+            class: App\Entity\ReseauxSociaux
             # ------------ Fin Element --------------

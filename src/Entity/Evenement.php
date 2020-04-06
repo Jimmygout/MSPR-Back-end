@@ -229,10 +229,6 @@ class Evenement
 
         return $this;
     }
-    public function __toString(): string
-    {
-        return $this->titre;
-    }
 
     public function getAccesHand(): ?bool
     {
@@ -244,5 +240,9 @@ class Evenement
         $this->AccesHand = $AccesHand;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->titre;
     }
 }
