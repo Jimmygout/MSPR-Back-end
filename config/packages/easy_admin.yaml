@@ -1,4 +1,8 @@
 easy_admin:
+    list:
+        # optionally you can define a global permission applied to all entities
+        # each entity can later override this by defining their own item_permission option
+        item_permission: 'ROLE_ADMIN'
     formats:
         date:     'd/m/Y'
         time:     'H:i'
@@ -12,8 +16,8 @@ easy_admin:
             - label: 'Utilisateur'
               icon: 'users-cog'
               children:
-                  - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs administration'}
-                  - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs'}
+                  - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs admin'}
+                  - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs Application'}
 
             - label: 'Environnement'
               icon: 'fas fa-map-marked-alt'
@@ -34,13 +38,11 @@ easy_admin:
                   - {entity: InformationGenerale , icon: 'question-circle' , label: 'Informations générale'}
                   - {entity: InformationUrgente , icon: 'exclamation-triangle' , label: 'Informations Urgente'}
               
-            - label: 'Elements'
-              icon: 'hand-middle-finger'
-              children:
-                  - {entity: Billeterie , icon: 'credit-card' , label: 'Billeterie'}
-                  - {entity: Faq , icon: 'question' , label: 'FAQ'}
-                  - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
-                  - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}
+            - {entity: Billeterie , icon: 'credit-card' , label: 'Billeterie'}
+            - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}
+            - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
+            - {entity: Faq , icon: 'question' , label: 'FAQ'}
+            - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }
 
     entities:
       # ------------ Environnement--------------
@@ -59,7 +61,8 @@ easy_admin:
                     - buvette
                 actions:
                     - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
-                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: -delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: -new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
                 title: "Elements de la carte"
 
 
@@ -93,6 +96,12 @@ easy_admin:
             # ------------ Element --------------
         Billeterie:
             class: App\Entity\Billetterie
+            form:
+                fields:
+                    - 'titre'
+                    - 'urlSite'
+                    - 'publier'
+                    - {property: 'image', type: 'file' , base_path: '/assets/img/'}
         Faq:
             class: App\Entity\Faq
         InformationGenerale:
@@ -105,11 +114,20 @@ easy_admin:
             class: App\Entity\ReseauxSociaux
             # ------------ Fin Element --------------
 
+      # ------------ Utilisateur --------------
         UserSite:
             class: App\Entity\User
             list:
+                item_permission: 'ROLE_SUPER_ADMIN'
                 dql_filter: "entity.source = 'Site Web'"
-
+                fields:
+                    # all users will see the first three columns
+                    - email
+                    - roles
+                actions:
+                    - {name: edit , permission: 'ROLE_SUPER', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
         UserAppli:
             class: App\Entity\User
             list:
