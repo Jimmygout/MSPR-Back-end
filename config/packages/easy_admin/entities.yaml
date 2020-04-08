@@ -1,0 +1,188 @@
+easy_admin:
+    entities:
+    # ------------ Billetterie --------------
+
+        Billeterie:
+            class: App\Entity\Billetterie
+            list:
+                fields:
+                    - 'titre'
+                    - 'urlSite'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.billetterie_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'urlSite'
+                    - 'publier'
+                    - {property: 'imageFile', type: 'vich_image'}
+        
+    # ------------ Partenaire --------------
+
+    
+      # ------------ Environnement--------------
+        Map:
+            class: App\Entity\Map      
+            label: 'une carte'
+            list:
+                fields:
+                    - parking           
+                    - boutique           
+                    - Wc           
+                    - Evenement           
+                    - Concert           
+                    - { property: objetPerdu , label: "Objets perdus" }          
+                    - { property: standInformation , label: "Stands d'informations" }           
+                    - buvette
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: -delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: -new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+                title: "Elements de la carte"
+
+
+        Buvette:
+            class: App\Entity\Buvette
+        Parking:
+            class: App\Entity\Parking
+        Billetterie:
+            class: App\Entity\Billetterie
+        Boutique:
+            class: App\Entity\Boutique
+        Concert:
+            class: App\Entity\Concert
+            list:
+              fields:
+                    - dateDebut
+                    - dateFin
+              sort: ['dateDebut', 'ASC']
+
+        Evenement:
+            class: App\Entity\Evenement
+        StandInformation:
+            class: App\Entity\StandInformation
+        Wc:
+            class: App\Entity\Wc
+        ObjetPerdu:
+            class: App\Entity\ObjetPerdu
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'lieu'
+                    - 'dateTrouve'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.objet_perdu_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'informationSupp'
+                    - 'longitude'
+                    - 'latitude'
+                    - 'accesHand'
+                    - 'lieu'
+                    - 'dateTrouve'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
+            
+        
+            # ------------Fin Environnement--------------
+
+
+        
+        Faq:
+            class: App\Entity\Faq
+        InformationGenerale:
+            class: App\Entity\InformationGenerale
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - { property: 'image', type: 'image', base_path: '%app.path.information_generale_images%' }
+                    - { property: 'publier', type: 'boolean'}
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+
+        InformationUrgente:
+            class: App\Entity\InformationUrgente
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - { property: 'image', type: 'image', base_path: '%app.path.information_urgente_images%' }
+                    - { property: 'publier', type: 'boolean'}
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - { property: 'publier', type: 'checkbox'}
+        Partenaire:
+            class: App\Entity\Partenaire
+            list:
+                fields:
+                    - 'titre'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'logo', type: 'image', base_path: '%app.path.partenaire_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'publier'
+                    - {property: 'imageFile', type: 'vich_image'}
+        
+        ReseauxSociaux:
+            class: App\Entity\ReseauxSociaux
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'url'
+                    - { property: 'image', type: 'image', base_path: '%app.path.reseaux_sociaux_images%' }
+                    - { property: 'publier', type: 'boolean'}
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'url'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+            # ------------ Fin Element --------------
+
+      # ------------ Utilisateur --------------
+        UserSite:
+            class: App\Entity\User
+            disabled_actions: ['new']
+            list:
+                item_permission: 'ROLE_SUPER_ADMIN'
+                dql_filter: "entity.source = 'Site Web'"
+                fields:
+                    # all users will see the first three columns
+                    - email
+                    - roles
+            form:
+                fields:
+                    - email
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' , 'ROLE_SUPER_ADMIN': 'ROLE_SUPER_ADMIN' } } }
+
+                actions:
+                    - {name: edit , permission: 'ROLE_SUPER', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+        UserAppli:
+            class: App\Entity\User
+            list:
+                dql_filter: "entity.source != 'Site Web'"

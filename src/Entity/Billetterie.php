@@ -3,11 +3,16 @@
 namespace App\Entity;
 
 use Symfony\Component\HttpFoundation\File\File;
-use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BilletterieRepository")
+ * @ApiResource(
+ *   collectionOperations={"get"={"method"="GET"}},
+ *   itemOperations={"get"={"method"="GET"}}
+ * )
  * @Vich\Uploadable()
  */
 class Billetterie
@@ -35,14 +40,14 @@ class Billetterie
     private $publier;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var \DateTime
      */
     private $image;
 
 
      /**
-     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @Vich\UploadableField(mapping="billetterie_images", fileNameProperty="image")
      * @var File
      */
     private $imageFile;
@@ -120,7 +125,7 @@ class Billetterie
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 

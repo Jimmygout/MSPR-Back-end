@@ -7,3 +7,33 @@ vich_uploader:
             upload_destination: '%kernel.project_dir%/public%app.path.product_images%'
             delete_on_update: false
             delete_on_remove: false
+        billetterie_images:
+            uri_prefix:         '%app.path.billetterie_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.billetterie_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        partenaire_images:
+            uri_prefix:         '%app.path.partenaire_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.partenaire_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        reseaux_sociaux_images:
+            uri_prefix:         '%app.path.reseaux_sociaux_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.reseaux_sociaux_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        information_generale_images:
+            uri_prefix:         '%app.path.information_generale_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.information_generale_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        information_urgente_images:
+            uri_prefix:         '%app.path.information_urgente_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.information_urgente_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        objet_perdu_images:
+            uri_prefix:         '%app.path.objet_perdu_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.objet_perdu_images%'
+            delete_on_update: false
+            delete_on_remove: false

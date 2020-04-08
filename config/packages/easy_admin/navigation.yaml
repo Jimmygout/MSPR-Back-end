@@ -1,0 +1,39 @@
+easy_admin:
+    design:
+        assets:
+              favicon: 'https://www.vippng.com/png/detail/44-447021_icon-guitar.png'
+        brand_color : red
+        menu:
+            - label: 'Environnement'
+              icon: 'fas fa-map-marked-alt'
+              children:
+                  - {entity: Map , icon: 'map-marker-alt', label: 'Carte'}
+                  - {entity: Buvette , icon: 'glass-cheers' , label: 'Buvettes'}
+                  - {entity: Parking , icon: 'parking' , label: 'Parkings'}
+                  - {entity: Boutique , icon: 'shopping-basket' , label: 'Boutiques'}
+                  - {entity: Concert , icon: 'music' , label: 'Concerts'}
+                  - {entity: Evenement , icon: 'calendar-alt' , label: 'Evenements'}
+                  - {entity: StandInformation , icon: 'info-circle' , label: "Stands d'informations"}
+                  - {entity: Wc , icon: 'restroom' , label: 'Toilettes'}
+                  - {entity: ObjetPerdu , icon: 'umbrella' , label: 'Objets perdus'}
+
+            - label: 'Informations'
+              icon: 'info'
+              children:
+                  - {entity: InformationGenerale , icon: 'question-circle' , label: 'Informations générale'}
+                  - {entity: InformationUrgente , icon: 'exclamation-triangle' , label: 'Informations Urgente'}
+              
+            - {entity: Billeterie , icon: 'credit-card' , label: 'Billeterie'}
+            - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}
+            - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
+            - {entity: Faq , icon: 'question' , label: 'FAQ'}
+            
+            - label: 'Utilisateurs'
+            - label: 'Utilisateur'
+              icon: 'users-cog'
+              children:
+                  - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs admin' , permission: 'ROLE_SUPER_ADMIN'}
+                  - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs Application'}
+
+            - label: 'Données Externe'
+            - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }

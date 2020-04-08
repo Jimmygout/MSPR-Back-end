@@ -1,0 +1,11 @@
+easy_admin:
+    list:
+        # optionally you can define a global permission applied to all entities
+        # each entity can later override this by defining their own item_permission option
+        item_permission: 'ROLE_ADMIN'
+    formats:
+        date:     'd/m/Y'
+        time:     'H:i'
+        datetime: 'd/m/Y H:i:s'
+
+    site_name : 'MSPR <em style="font-size:80%">Back-end</em>'

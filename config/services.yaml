@@ -5,6 +5,12 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     app.path.product_images: /uploads/images/products
+    app.path.billetterie_images: /uploads/images/billetterie
+    app.path.partenaire_images: /uploads/images/partenaire
+    app.path.reseaux_sociaux_images: /uploads/images/reseaux_sociaux
+    app.path.information_generale_images: /uploads/images/information_generale
+    app.path.information_urgente_images: /uploads/images/information_urgente
+    app.path.objet_perdu_images: /uploads/images/objet_perdu
 
 services:
     # default configuration for services in *this* file
