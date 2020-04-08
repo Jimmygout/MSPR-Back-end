@@ -4,6 +4,14 @@ easy_admin:
               favicon: 'https://www.vippng.com/png/detail/44-447021_icon-guitar.png'
         brand_color : red
         menu:
+            - label: 'Utilisateurs'
+            - label: 'Utilisateur'
+              icon: 'users-cog'
+              children:
+                  - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs admin' , permission: 'ROLE_SUPER_ADMIN'}
+                  - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs Application'}
+
+            - label: 'Informations'
             - label: 'Environnement'
               icon: 'fas fa-map-marked-alt'
               children:
@@ -28,12 +36,5 @@ easy_admin:
             - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
             - {entity: Faq , icon: 'question' , label: 'FAQ'}
             
-            - label: 'Utilisateurs'
-            - label: 'Utilisateur'
-              icon: 'users-cog'
-              children:
-                  - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs admin' , permission: 'ROLE_SUPER_ADMIN'}
-                  - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs Application'}
-
-            - label: 'Données Externe'
+            - label: 'Données Externes'
             - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }
