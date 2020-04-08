@@ -96,12 +96,18 @@ easy_admin:
             # ------------ Element --------------
         Billeterie:
             class: App\Entity\Billetterie
+            list:
+                fields:
+                    - 'titre'
+                    - 'urlSite'
+                    - 'publier'
+                    - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
             form:
                 fields:
                     - 'titre'
                     - 'urlSite'
                     - 'publier'
-                    - {property: 'image', type: 'file' , base_path: '/assets/img/'}
+                    - {property: 'imageFile', type: 'vich_image'}
         Faq:
             class: App\Entity\Faq
         InformationGenerale:
