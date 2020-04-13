@@ -37,3 +37,38 @@ vich_uploader:
             upload_destination: '%kernel.project_dir%/public%app.path.objet_perdu_images%'
             delete_on_update: false
             delete_on_remove: false
+        toilette_images:
+            uri_prefix:         '%app.path.toilette_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.toilette_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        stand_information_images:
+            uri_prefix:         '%app.path.stand_information_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.stand_information_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        evenement_images:
+            uri_prefix:         '%app.path.evenement_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.evenement_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        concert_images:
+            uri_prefix:         '%app.path.concert_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.concert_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        parking_images:
+            uri_prefix:         '%app.path.parking_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.parking_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        boutique_images:
+            uri_prefix:         '%app.path.boutique_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.boutique_images%'
+            delete_on_update: false
+            delete_on_remove: false
+        buvette_images:
+            uri_prefix:         '%app.path.buvette_images%'
+            upload_destination: '%kernel.project_dir%/public%app.path.buvette_images%'
+            delete_on_update: false
+            delete_on_remove: false

@@ -11,6 +11,13 @@ parameters:
     app.path.information_generale_images: /uploads/images/information_generale
     app.path.information_urgente_images: /uploads/images/information_urgente
     app.path.objet_perdu_images: /uploads/images/objet_perdu
+    app.path.toilette_images: /uploads/images/toilette
+    app.path.stand_information_images: /uploads/images/stand_information
+    app.path.evenement_images: /uploads/images/evenement
+    app.path.concert_images: /uploads/images/concert
+    app.path.parking_images: /uploads/images/parking
+    app.path.boutique_images: /uploads/images/boutique_images
+    app.path.buvette_images: /uploads/images/buvette_images
 
 services:
     # default configuration for services in *this* file

@@ -38,3 +38,4 @@ easy_admin:
             
             - label: 'Données Externes'
             - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }
+            - {label: 'Coordonnées GPS' ,icon: 'map-marker-alt' , url: 'https://www.coordonnees-gps.fr/' , target: '_blank' }

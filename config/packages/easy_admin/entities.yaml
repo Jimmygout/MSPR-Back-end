@@ -20,10 +20,10 @@ easy_admin:
     # ------------ Partenaire --------------
 
     
-      # ------------ Environnement--------------
+      # ------------------------ Environnement----------------------------
         Map:
-            class: App\Entity\Map      
-            label: 'une carte'
+            class: App\Entity\Map  
+            title: "Elements de la carte"    
             list:
                 fields:
                     - { property: parking, type: 'array' }          
@@ -38,31 +38,177 @@ easy_admin:
                     - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
                     - {name: -delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
                     - {name: -new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
-                title: "Elements de la carte"
+                
 
 
         Buvette:
             class: App\Entity\Buvette
+            list:
+                title: "Les buvettes" 
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+                
+                fields:
+                    - { property: 'image', type: 'image', base_path: '%app.path.buvette_images%' }
+                    - 'titre'
+                    - { property: 'designation', label: 'Désignation'}
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'accesHand', type: 'boolean', label: 'Accès handicapé'}
+            new:
+                title: "Ajouter une buvette"
+            edit:
+                title: "Modifier une buvette"
+            form:
+                title: "Les buvettes" 
+                fields:
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
+                    - 'publier'
+                    - 'map'
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}                    
+
+
         Parking:
             class: App\Entity\Parking
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'place'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.parking_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'place'
+                    - 'longitude'
+                    - 'latitude'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
         Billetterie:
             class: App\Entity\Billetterie
         Boutique:
             class: App\Entity\Boutique
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.boutique_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'longitude'
+                    - 'latitude'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
         Concert:
             class: App\Entity\Concert
             list:
-              fields:
-                    - dateDebut
-                    - dateFin
-              sort: ['dateDebut', 'ASC']
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - 'type'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.concert_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'longitude'
+                    - 'dateDebut'
+                    - 'lieu'
+                    - 'dateFin'
+                    - 'latitude'
+                    - 'type'
+                    - 'accesHand'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
+            sort: ['dateDebut', 'ASC']
 
         Evenement:
             class: App\Entity\Evenement
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - 'type'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.evenement_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'longitude'
+                    - 'dateDebut'
+                    - 'lieu'
+                    - 'information'
+                    - 'dateFin'
+                    - 'latitude'
+                    - 'type'
+                    - 'accesHand'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
+
         StandInformation:
             class: App\Entity\StandInformation
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'lieu'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.stand_information_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'informationSupp'
+                    - 'longitude'
+                    - 'latitude'
+                    - 'accesHand'
+                    - 'lieu'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
         Wc:
             class: App\Entity\Wc
+            list:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.toilette_images%' }
+            form:
+                fields:
+                    - 'titre'
+                    - 'designation'
+                    - 'informationSupp'
+                    - 'longitude'
+                    - 'latitude'
+                    - 'accesHand'
+                    - {property: 'imageFile', type: 'vich_image'}
+                    - 'publier'
+                    - 'map'
+
         ObjetPerdu:
             class: App\Entity\ObjetPerdu
             list:
