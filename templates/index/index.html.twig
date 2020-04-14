@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu gestion{% endblock %}
+
+{% block body %}
+<style>
+    .m-4{
+        margin: 15px;
+    }
+    .p4{
+        padding: 15px !important;
+    }
+    .mt2{
+        margin-top: 5px;
+    }
+    .mt3{
+        margin-top: 10px;
+    }
+    .mt4{
+        margin-top: 15px;
+    }
+    .ml2{
+        margin-left: 5px;
+    }
+    .ml3{
+        margin-left: 10px;
+    }
+    .ml4{
+        margin-left: 15px;
+    }
+    .radius10{
+        border-radius: 10%;
+    }
+    .img-back{
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: white;
+    font-weight: 700;
+    }
+    .img-auth{
+        background-image: url("https://images.pexels.com/photos/1684187/pexels-photo-1684187.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    }
+    .img-adm{
+        background-image: url("https://images.pexels.com/photos/120066/pexels-photo-120066.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    }
+    .img-cont{
+        background-image: url("https://images.pexels.com/photos/2147029/pexels-photo-2147029.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    }
+    h5{
+        text-decoration: underline;
+    }
+    .card-perso{
+        height: 220px;
+    }
+    .mt22{
+        margin-top: 5rem;
+    }
+    .card-panel {
+    padding: 10px;
+   }
+   body{
+       background-color: rgba(0,0,0,0.42);
+   }
+    
+</style>
+
+<div class="container">
+    {% if app.user %}
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="card-panel grey lighten-5 z-depth-1">
+            <div class="valign-wrapper">
+                <div class="col s2">
+                <i class="medium material-icons">account_circle</i>
+                </div>
+                <div class="col s10">
+                <span class="black-text ml4">
+                    Connecté avec l'adresse {{ app.user.username }}, <a href="{{ path('app_logout') }}">se deconnecter</a>
+                </span>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endif %}
+    
+
+<div class="row {% if not app.user %} mt22 {% endif %}">
+
+    <div class="col m6 s12  mt3">
+        <div class="card-perso p4 z-depth-2 hoverable img-adm img-back">
+            <div class="card-content">
+                <h5 class="center-align">Administration</h5>
+                <p class="center-align">Ici vous pouvez administrer totalement l'aplication mobile</p>
+                <div class="row">
+                    <div class="col s12 center-align"><a class="waves-effect waves-light btn-small purple darken-4" href="admin/gestion">Administrer</a></div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col m6 s12  mt3">
+        <div class="card-perso p4 z-depth-2 hoverable img-auth img-back">
+            <div class="card-content">
+                <h5 class="center-align">Authentification</h5>
+                <p class="center-align">Connectez vous pour administrer l'aplication mobile</p>
+                <div class="row">
+                    <div class="col s12 center-align"><a class="waves-effect waves-light btn-small purple darken-4" href="{{ path('app_login') }}">Se connecter</a></div>
+                    <div class="mt2 col s12 center-align"><a class="waves-effect waves-light btn-small light-green darken-4" href="{{ path('app_register') }}">S'inscire</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="col s12 mt3">
+            <div class="card-perso p4 z-depth-2 hoverable img-cont img-back">
+                <div class="card-content">
+                    <h5 class="center-align">Contact</h5>
+                    <p class="center-align">En cas de soucis merci de nous contacter</p>
+                    <div class="row">
+                        <div class="col s12 center-align"><a class="waves-effect waves-light btn-small purple darken-4" href="mailto:test@test.comt">Contacter</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+  </div>
+</div>
+{% endblock %}

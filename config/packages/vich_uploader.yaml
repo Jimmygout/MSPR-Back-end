@@ -8,7 +8,7 @@ vich_uploader:
             delete_on_update: false
             delete_on_remove: false
         billetterie_images:
-            uri_prefix:         '%app.path.billetterie_images%'
+            uri_prefix:         '/public/%app.path.billetterie_images%'
             upload_destination: '%kernel.project_dir%/public%app.path.billetterie_images%'
             delete_on_update: false
             delete_on_remove: false
