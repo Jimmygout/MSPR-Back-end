@@ -225,6 +225,6 @@ class Wc
     }
     public function __toString(): string
     {
-        return $this->titre;
+        return $this->Titre;
     }
 }

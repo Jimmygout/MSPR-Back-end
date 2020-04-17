@@ -258,6 +258,6 @@ class ObjetPerdu
     }
     public function __toString(): string
     {
-        return $this->titre;
+        return $this->Titre;
     }
 }

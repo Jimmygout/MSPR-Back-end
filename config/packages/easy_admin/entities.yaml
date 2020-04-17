@@ -1,46 +1,77 @@
 easy_admin:
     entities:
-    # ------------ Billetterie --------------
 
-        Billeterie:
-            class: App\Entity\Billetterie
+      # --------------------------- Utilisateur ----------------------------
+
+      # ------------ utilisateur admin --------------
+        UserSite:
+            class: App\Entity\User
+            disabled_actions: ['new']
+            
             list:
+                item_permission: 'ROLE_SUPER_ADMIN'
+                dql_filter: "entity.source = 'Site Web'"
+                title: "Les utilisateurs admin"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
                 fields:
-                    - 'titre'
-                    - 'urlSite'
-                    - { property: 'publier', type: 'boolean'}
-                    - { property: 'image', type: 'image', base_path: '%app.path.billetterie_images%' }
+                    - email
+                    - roles
             form:
+                title: "Modifier utilisateurs admin"
                 fields:
-                    - 'titre'
-                    - 'urlSite'
-                    - 'publier'
-                    - {property: 'imageFile', type: 'vich_image'}
-        
-    # ------------ Partenaire --------------
+                    - email
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'Utilisateur': 'ROLE_USER', 'Administrateur': 'ROLE_ADMIN' , 'Super administrateur': 'ROLE_SUPER_ADMIN' } } }
+                    - { property: 'source', type: 'choice', type_options: { multiple: false, choices: { 'Site Web': 'Site Web', 'Application': 'Application' } } }
 
-    
-      # ------------------------ Environnement----------------------------
+        # ------------ utilisateur application --------------
+        UserAppli:
+            class: App\Entity\User
+            disabled_actions: ['new']
+            list:
+                dql_filter: "entity.source != 'Site Web'"
+                title: "Les utilisateurs application"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+                fields:
+                    - email
+                    - roles
+            form:
+                title: "Modifier utilisateurs application"
+                fields:
+                    - email
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'Utilisateur': 'ROLE_USER', 'Administrateur': 'ROLE_ADMIN' , 'Super administrateur': 'ROLE_SUPER_ADMIN' } } }
+                    - { property: 'source', type: 'choice', type_options: { multiple: false, choices: { 'Application': 'Application' , 'Site Web': 'Site Web' } } }
+
+
+      # -------------------------------- Environnement -----------------------------------
+
+      # ------------ carte --------------
         Map:
             class: App\Entity\Map  
+            disabled_actions: ['new', 'delete', 'edit']
             title: "Elements de la carte"    
             list:
                 fields:
                     - { property: parking, type: 'array' }          
-                    - boutique           
-                    - Wc           
-                    - Evenement           
-                    - Concert           
-                    - { property: objetPerdu , label: "Objets perdus" }          
-                    - { property: standInformation , label: "Stands d'informations" }           
-                    - buvette
+                    - { property: boutique, type: 'array' }          
+                    - { property: Wc, type: 'array' }          
+                    - { property: Evenement, type: 'array' }          
+                    - { property: Concert, type: 'array' }          
+                    - { property: buvette, type: 'array' }          
+                    - { property: objetPerdu, type: 'array' , label: "Objets perdus" }          
+                    - { property: standInformation, type: 'array' , label: "Stands d'informations" }          
                 actions:
-                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: -edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
                     - {name: -delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
                     - {name: -new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
                 
 
-
+        # ------------ buvette --------------
         Buvette:
             class: App\Entity\Buvette
             list:
@@ -61,7 +92,6 @@ easy_admin:
             edit:
                 title: "Modifier une buvette"
             form:
-                title: "Les buvettes" 
                 fields:
                     - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
                     - {property: 'titre', type: 'text', label: 'Titre'}
@@ -76,74 +106,130 @@ easy_admin:
                     - {property: 'imageFile', type: 'vich_image'}                    
 
 
+        # ------------ parking --------------
+
         Parking:
             class: App\Entity\Parking
             list:
+                title: "Les parkings"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
                 fields:
                     - 'titre'
                     - 'designation'
                     - 'place'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.parking_images%' }
+            new:
+                title: "Ajouter un parking"
+            edit:
+                title: "Modifier un parking"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'place'
-                    - 'longitude'
-                    - 'latitude'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
                     - 'map'
-        Billetterie:
-            class: App\Entity\Billetterie
+                    - 'place'
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+
+        # ------------ boutique --------------
+
         Boutique:
             class: App\Entity\Boutique
             list:
+                title: "Les boutiques"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.boutique_images%' }
+            new:
+                title: "Ajouter une boutique"
+            edit:
+                title: "Modifier une boutique"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'longitude'
-                    - 'latitude'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
                     - 'map'
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+
+        # ------------ Concert --------------
+
         Concert:
             class: App\Entity\Concert
             list:
+                title: "Les concerts"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
                     - 'dateDebut'
                     - 'dateFin'
-                    - 'type'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.concert_images%' }
+            new:
+                title: "Ajouter un concert"
+            edit:
+                title: "Modifier un concert"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'longitude'
-                    - 'dateDebut'
-                    - 'lieu'
-                    - 'dateFin'
-                    - 'latitude'
-                    - 'type'
-                    - 'accesHand'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
                     - 'map'
+                    - { type: 'tab',  icon: 'far fa-calendar-alt', label: 'Horaire' }
+                    - {property: 'dateDebut', label: 'Date de debut'}
+                    - {property: 'dateFin', label: 'Date de fin'}
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
             sort: ['dateDebut', 'ASC']
+
+
+            # ------------ Evenement --------------
 
         Evenement:
             class: App\Entity\Evenement
             list:
+                title: "Les evenements"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
@@ -152,66 +238,105 @@ easy_admin:
                     - 'type'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.evenement_images%' }
+            new:
+                title: "Ajouter un evenement"
+            edit:
+                title: "Modifier un evenement"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'longitude'
-                    - 'dateDebut'
-                    - 'lieu'
-                    - 'information'
-                    - 'dateFin'
-                    - 'latitude'
-                    - 'type'
-                    - 'accesHand'
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
+                    - { property: 'type', type: 'choice', type_options: { multiple: false, choices: { 'Rencontre': 'Rencontre', 'Evenement publique': 'Evenement publique' } } }
+                    - { type: 'tab',  icon: 'far fa-calendar-alt', label: 'Horaire' }
+                    - {property: 'dateDebut', label: 'Date de debut'}
+                    - {property: 'dateFin', label: 'Date de fin'}
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
                     - {property: 'imageFile', type: 'vich_image'}
-                    - 'publier'
-                    - 'map'
 
+
+        # ------------ Evenement --------------
         StandInformation:
             class: App\Entity\StandInformation
             list:
+                title: "Les stands d'informations"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
-                    - 'lieu'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.stand_information_images%' }
+            new:
+                title: "Ajouter un stand d'information"
+            edit:
+                title: "Modifier un stand d'information"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'informationSupp'
-                    - 'longitude'
-                    - 'latitude'
-                    - 'accesHand'
-                    - 'lieu'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
                     - 'map'
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+
+        # ------------ Toilette --------------
+
         Wc:
             class: App\Entity\Wc
             list:
+                title: "Les toilettes"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.toilette_images%' }
+            new:
+                title: "Ajouter toilette"
+            edit:
+                title: "Modifier toilette"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'informationSupp'
-                    - 'longitude'
-                    - 'latitude'
-                    - 'accesHand'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
                     - 'map'
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
 
+        # ------------ objets perdus --------------
         ObjetPerdu:
             class: App\Entity\ObjetPerdu
             list:
+                title: "Les objets perdus"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
@@ -219,30 +344,40 @@ easy_admin:
                     - 'dateTrouve'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.objet_perdu_images%' }
+            new:
+                title: "Ajouter un objet perdu"
+            edit:
+                title: "Modifier un objet perdu"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'informationSupp'
-                    - 'longitude'
-                    - 'latitude'
-                    - 'accesHand'
-                    - 'lieu'
-                    - 'dateTrouve'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'dateTrouve', label: 'Date trouvé'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
                     - 'map'
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
             
-        
-            # ------------Fin Environnement--------------
+        # ----------------------- Informations ----------------------
 
 
-        
-        Faq:
-            class: App\Entity\Faq
+        # ------------information generale--------------
+
         InformationGenerale:
             class: App\Entity\InformationGenerale
             list:
+                title: "Les informations générales"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
@@ -250,18 +385,34 @@ easy_admin:
                     - 'dateFin'
                     - { property: 'image', type: 'image', base_path: '%app.path.information_generale_images%' }
                     - { property: 'publier', type: 'boolean'}
+            new:
+                title: "Ajouter une alerte generale"
+            edit:
+                title: "Modifier une alerte generale"
             form:
                 fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'dateDebut'
-                    - 'dateFin'
-                    - {property: 'imageFile', type: 'vich_image'}
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
                     - 'publier'
+                    - { type: 'tab',  icon: 'far fa-calendar-alt', label: 'Horaire' }
+                    - {property: 'dateDebut', label: 'Date de debut'}
+                    - {property: 'dateFin', label: 'Date de fin'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+
+        # ------------information urgente--------------
 
         InformationUrgente:
             class: App\Entity\InformationUrgente
             list:
+                title: "Les informations urgentes"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - 'designation'
@@ -269,66 +420,126 @@ easy_admin:
                     - 'dateFin'
                     - { property: 'image', type: 'image', base_path: '%app.path.information_urgente_images%' }
                     - { property: 'publier', type: 'boolean'}
+            new:
+                title: "Ajouter une alerte urgente"
+            edit:
+                title: "Modifier une alerte urgente"
+            form:
+                fields:
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'publier', type: 'checkbox'}
+                    - { type: 'tab',  icon: 'far fa-calendar-alt', label: 'Horaire' }
+                    - {property: 'dateDebut', label: 'Date de debut'}
+                    - {property: 'dateFin', label: 'Date de fin'}
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+        # ------------------------- Billetterie ----------------------
+
+        Billeterie:
+            class: App\Entity\Billetterie
+            disabled_actions: ['new', 'delete']
+            list:
+                title: "La billetterie"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
+              
+                fields:
+                    - 'titre'
+                    - 'urlSite'
+                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'image', type: 'image', base_path: '%app.path.billetterie_images%' }
+            form:
+                fields:
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'titre', type: 'text', label: 'Titre'}
+                    - {property: 'urlSite', type: 'text', label: 'Lien de la billetterie'}
+                    - 'publier'
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+
+        # ------------------------- reseau sociaux ----------------------
+
+        ReseauxSociaux:
+            class: App\Entity\ReseauxSociaux
+            list:
+                title: "Les réseaux sociaux"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
+                fields:
+                    - 'titre'
+                    - 'type'
+                    - 'url'
+                    - { property: 'publier', type: 'boolean'}
             form:
                 fields:
                     - 'titre'
                     - 'designation'
-                    - 'dateDebut'
-                    - 'dateFin'
-                    - {property: 'imageFile', type: 'vich_image'}
-                    - { property: 'publier', type: 'checkbox'}
+                    - 'url'
+                    - { property: 'type', type: 'choice', type_options: { multiple: false, choices: { 'Facebook': 'facebook', 'Twitter': 'twitter', 'Instagram': 'Instagram', 'Snapchat': 'snapchat' } } }
+                    - 'publier'
+        
+   
+   # ------------------------- reseau sociaux ----------------------
+
         Partenaire:
             class: App\Entity\Partenaire
             list:
+                title: "Les partenaires"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
                 fields:
                     - 'titre'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'logo', type: 'image', base_path: '%app.path.partenaire_images%' }
+            new:
+                title: "Ajouter un partenaire"
+            edit:
+                title: "Modifier un partenaire"
             form:
                 fields:
                     - 'titre'
                     - 'publier'
                     - {property: 'imageFile', type: 'vich_image'}
         
-        ReseauxSociaux:
-            class: App\Entity\ReseauxSociaux
-            list:
-                fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'url'
-                    - { property: 'image', type: 'image', base_path: '%app.path.reseaux_sociaux_images%' }
-                    - { property: 'publier', type: 'boolean'}
-            form:
-                fields:
-                    - 'titre'
-                    - 'designation'
-                    - 'url'
-                    - {property: 'imageFile', type: 'vich_image'}
-                    - 'publier'
-            # ------------ Fin Element --------------
+        # ------------------------- reseau sociaux ----------------------
 
-      # ------------ Utilisateur --------------
-        UserSite:
-            class: App\Entity\User
-            disabled_actions: ['new']
+        Faq:
+            class: App\Entity\Faq
             list:
-                item_permission: 'ROLE_SUPER_ADMIN'
-                dql_filter: "entity.source = 'Site Web'"
-                fields:
-                    # all users will see the first three columns
-                    - email
-                    - roles
-            form:
-                fields:
-                    - email
-                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ROLE_USER': 'ROLE_USER', 'ROLE_ADMIN': 'ROLE_ADMIN' , 'ROLE_SUPER_ADMIN': 'ROLE_SUPER_ADMIN' } } }
-
+                title: "La FAQ"
                 actions:
-                    - {name: edit , permission: 'ROLE_SUPER', icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
                     - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
                     - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
-        UserAppli:
-            class: App\Entity\User
-            list:
-                dql_filter: "entity.source != 'Site Web'"
+            
+                fields:
+                    - 'titre'
+                    - 'question'
+                    - 'reponse'
+                    - 'theme'
+                    - { property: 'publier', type: 'boolean'}
+            new:
+                title: "Ajouter FAQ"
+            edit:
+                title: "Modifier FAQ"
+            form:
+                fields:
+                    - 'titre'
+                    - 'question'
+                    - 'reponse'
+                    - { property: 'theme', type: 'choice', type_options: { multiple: false, choices: { 'Evenement': 'evenement', 'Concert': 'concert', 'Carte': 'carte', 'Application': 'application' } } }
+                    - publier
+            

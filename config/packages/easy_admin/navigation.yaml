@@ -1,6 +1,7 @@
 easy_admin:
     design:
         assets:
+              css: ['/bundles/easyadmin/custom_backend.css']
               favicon: 'https://www.vippng.com/png/detail/44-447021_icon-guitar.png'
         brand_color : red
         menu:
@@ -29,7 +30,7 @@ easy_admin:
               icon: 'info'
               children:
                   - {entity: InformationGenerale , icon: 'question-circle' , label: 'Informations générale'}
-                  - {entity: InformationUrgente , icon: 'exclamation-triangle' , label: 'Informations Urgente'}
+                  - {entity: InformationUrgente , icon: 'exclamation-triangle' , label: 'Informations urgente'}
               
             - {entity: Billeterie , icon: 'credit-card' , label: 'Billeterie'}
             - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}

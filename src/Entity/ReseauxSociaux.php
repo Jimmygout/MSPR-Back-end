@@ -40,45 +40,14 @@ class ReseauxSociaux
     private $designation;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var \DateTime
-     */
-    private $image;
-
-
-     /**
-     * @Vich\UploadableField(mapping="reseaux_sociaux_images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $publier;
 
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
 
     public function getId(): ?int
     {
@@ -121,18 +90,6 @@ class ReseauxSociaux
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
     public function getImage(): ?string
     {
         return $this->image;
@@ -153,6 +110,18 @@ class ReseauxSociaux
     public function setPublier(bool $publier): self
     {
         $this->publier = $publier;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

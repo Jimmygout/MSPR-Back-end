@@ -27,14 +27,14 @@ class Faq
     private $titre;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $designation;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $queqtion;
+    private $question;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -52,7 +52,7 @@ class Faq
     private $publier;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime" , nullable=true)
      */
     private $datePost;
 
@@ -85,14 +85,14 @@ class Faq
         return $this;
     }
 
-    public function getQueqtion(): ?string
+    public function getQuestion(): ?string
     {
-        return $this->queqtion;
+        return $this->question;
     }
 
-    public function setQueqtion(string $queqtion): self
+    public function setQuestion(string $question): self
     {
-        $this->queqtion = $queqtion;
+        $this->question = $question;
 
         return $this;
     }
