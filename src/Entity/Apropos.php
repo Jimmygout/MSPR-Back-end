@@ -6,7 +6,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *   collectionOperations={"get"={"method"="GET"}},
+ *   itemOperations={"get"={"method"="GET"}}
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\AproposRepository")
  */
 class Apropos

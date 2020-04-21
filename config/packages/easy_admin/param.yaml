@@ -8,4 +8,4 @@ easy_admin:
         time:     'H:i'
         datetime: 'd/m/Y H:i:s'
 
-    site_name : 'MSPR <em style="font-size:80%">Back-end</em>'
+    site_name : 'Nation Sounds <em style="font-size:50%">Admin</em>'

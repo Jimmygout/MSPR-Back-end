@@ -36,11 +36,6 @@ class Boutique
     private $designation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="boutique")
-     */
-    private $map;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $AccesHand;
@@ -144,18 +139,6 @@ class Boutique
     public function setDesignation(string $designation): self
     {
         $this->designation = $designation;
-
-        return $this;
-    }
-
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
 
         return $this;
     }

@@ -51,24 +51,7 @@ easy_admin:
       # -------------------------------- Environnement -----------------------------------
 
       # ------------ carte --------------
-        Map:
-            class: App\Entity\Map  
-            disabled_actions: ['new', 'delete', 'edit']
-            title: "Elements de la carte"    
-            list:
-                fields:
-                    - { property: parking, type: 'array' }          
-                    - { property: boutique, type: 'array' }          
-                    - { property: Wc, type: 'array' }          
-                    - { property: Evenement, type: 'array' }          
-                    - { property: Concert, type: 'array' }          
-                    - { property: buvette, type: 'array' }          
-                    - { property: objetPerdu, type: 'array' , label: "Objets perdus" }          
-                    - { property: standInformation, type: 'array' , label: "Stands d'informations" }          
-                actions:
-                    - {name: -edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
-                    - {name: -delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
-                    - {name: -new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+       
                 
 
         # ------------ buvette --------------
@@ -98,7 +81,6 @@ easy_admin:
                     - {property: 'designation', type: 'textarea', label: 'Désignation'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
-                    - 'map'
                     - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
                     - {property: 'longitude', type: 'text', label: 'Longitude'}
                     - {property: 'latitude', type: 'text', label: 'Latitude'}
@@ -133,7 +115,6 @@ easy_admin:
                     - {property: 'designation', type: 'textarea', label: 'Désignation'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
-                    - 'map'
                     - 'place'
                     - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
                     - {property: 'longitude', type: 'text', label: 'Longitude'}
@@ -169,7 +150,6 @@ easy_admin:
                     - {property: 'designation', type: 'textarea', label: 'Désignation'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
-                    - 'map'
                     - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
                     - {property: 'longitude', type: 'text', label: 'Longitude'}
                     - {property: 'latitude', type: 'text', label: 'Latitude'}
@@ -177,9 +157,75 @@ easy_admin:
                     - {property: 'imageFile', type: 'vich_image'}
 
 
+         # ------------ Chanteur --------------
+        Chanteur: 
+            class: App\Entity\Chanteur
+            list:
+                title: "Les Chanteurs"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
+                fields:
+                    - { property: 'image', type: 'image', base_path: '%app.path.chanteur_images%' }
+                    - 'nom'
+                    - 'description'
+                    - { property: 'publier', type: 'boolean'}
+            new:
+                title: "Ajouter un chanteur"
+            edit:
+                title: "Modifier un chanteur"
+            form:
+                fields:
+
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'nom', type: 'text', label: 'Nom'}
+                    - {property: 'description', type: 'textarea', label: 'Description'}
+                    - 'publier'
+
+                    - { type: 'tab',  icon: 'share-alt', label: 'Réseaux sociaux' }
+                    - {property: 'facebook', type: 'text', label: 'Facebook',  icon: 'info-circle'}
+                    - {property: 'twitter', type: 'text', label: 'Twitter'}
+                    - {property: 'insta', type: 'text', label: 'Instagram'}
+                    - {property: 'snapchat', type: 'text', label: 'Snapchat'}
+                    - {property: 'youtube', type: 'text', label: 'Youtube'}
+                    - {property: 'site', type: 'text', label: 'Site web'}
+            
+                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
+                    - {property: 'imageFile', type: 'vich_image'}
+
+        
+        # ------------ Scene --------------
+       
+        Scene: 
+            class: App\Entity\Scene
+            list:
+                title: "Les Scènes"
+                actions:
+                    - {name: edit , icon: 'pencil', label: false, css_class: 'btn btn-secondary' }
+                    - {name: delete , icon: 'trash-alt', label: false, css_class: 'btn btn-danger' }
+                    - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
+            
+                fields:
+                    - 'lieu'
+                    - { property: 'accesHand', type: 'boolean' , label: 'Accès handicapé'}
+            new:
+                title: "Ajouter une Scène"
+            edit:
+                title: "Modifier une Scène"
+            form:
+                fields:
+                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
+                    - {property: 'lieu', type: 'text', label: 'Titre'}
+                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
+                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
+                    - {property: 'longitude', type: 'text', label: 'Longitude'}
+                    - {property: 'latitude', type: 'text', label: 'Latitude'}
+
         # ------------ Concert --------------
 
-        Concert:
+        Concert: 
             class: App\Entity\Concert
             list:
                 title: "Les concerts"
@@ -189,34 +235,22 @@ easy_admin:
                     - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
             
                 fields:
-                    - 'titre'
-                    - 'designation'
+                    - {property: 'chanteur' , type: 'text'}
                     - 'dateDebut'
                     - 'dateFin'
+                    - { property: 'scene', type: 'text'}
                     - { property: 'publier', type: 'boolean'}
-                    - { property: 'image', type: 'image', base_path: '%app.path.concert_images%' }
             new:
                 title: "Ajouter un concert"
             edit:
                 title: "Modifier un concert"
             form:
                 fields:
-                    - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
-                    - {property: 'titre', type: 'text', label: 'Titre'}
-                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
-                    - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
-                    - 'publier'
-                    - 'map'
-                    - { type: 'tab',  icon: 'far fa-calendar-alt', label: 'Horaire' }
-                    - {property: 'dateDebut', label: 'Date de debut'}
-                    - {property: 'dateFin', label: 'Date de fin'}
-                    - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
-                    - {property: 'longitude', type: 'text', label: 'Longitude'}
-                    - {property: 'latitude', type: 'text', label: 'Latitude'}
-                    - { type: 'tab',  icon: 'fas fa-image', label: 'Image' }
-                    - {property: 'imageFile', type: 'vich_image'}
-
-            sort: ['dateDebut', 'ASC']
+                    - 'chanteur'
+                    - 'scene'
+                    - 'dateDebut'
+                    - 'dateFin'
+                    - { property: 'publier', type: 'checkbox'}
 
 
             # ------------ Evenement --------------
@@ -232,10 +266,11 @@ easy_admin:
             
                 fields:
                     - 'titre'
-                    - 'designation'
+                    - 'information'
+                    - {property: 'chanteur' , type: 'array'}
+                    - 'type'
                     - 'dateDebut'
                     - 'dateFin'
-                    - 'type'
                     - { property: 'publier', type: 'boolean'}
                     - { property: 'image', type: 'image', base_path: '%app.path.evenement_images%' }
             new:
@@ -246,8 +281,10 @@ easy_admin:
                 fields:
                     - { type: 'tab',  icon: 'info-circle' , label: 'Information de base' }
                     - {property: 'titre', type: 'text', label: 'Titre'}
-                    - {property: 'designation', type: 'textarea', label: 'Désignation'}
+                    - {property: 'information', type: 'textarea', label: 'Information'}
+                    - {property: 'chanteur'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
+                    - {property: 'publier', label: 'Publier' , type: 'checkbox'}
                     - { property: 'type', type: 'choice', type_options: { multiple: false, choices: { 'Rencontre': 'Rencontre', 'Evenement publique': 'Evenement publique' } } }
                     - { type: 'tab',  icon: 'far fa-calendar-alt', label: 'Horaire' }
                     - {property: 'dateDebut', label: 'Date de debut'}
@@ -285,7 +322,6 @@ easy_admin:
                     - {property: 'designation', type: 'textarea', label: 'Désignation'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
-                    - 'map'
                     - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
                     - {property: 'longitude', type: 'text', label: 'Longitude'}
                     - {property: 'latitude', type: 'text', label: 'Latitude'}
@@ -320,7 +356,6 @@ easy_admin:
                     - {property: 'designation', type: 'textarea', label: 'Désignation'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
-                    - 'map'
                     - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
                     - {property: 'longitude', type: 'text', label: 'Longitude'}
                     - {property: 'latitude', type: 'text', label: 'Latitude'}
@@ -356,7 +391,6 @@ easy_admin:
                     - {property: 'dateTrouve', label: 'Date trouvé'}
                     - {property: 'accesHand', label: 'Accès handicapé' , type: 'checkbox'}
                     - 'publier'
-                    - 'map'
                     - { type: 'tab',  icon: 'map-marker', label: 'Coordonnées GPS' }
                     - {property: 'longitude', type: 'text', label: 'Longitude'}
                     - {property: 'latitude', type: 'text', label: 'Latitude'}
@@ -489,7 +523,7 @@ easy_admin:
                     - 'publier'
         
    
-   # ------------------------- reseau sociaux ----------------------
+   # ------------------------- partenaire ----------------------
 
         Partenaire:
             class: App\Entity\Partenaire
@@ -501,9 +535,11 @@ easy_admin:
                     - {name: new , icon: 'plus', label: 'Ajouter', css_class: 'btn btn-primary' }
             
                 fields:
-                    - 'titre'
-                    - { property: 'publier', type: 'boolean'}
                     - { property: 'logo', type: 'image', base_path: '%app.path.partenaire_images%' }
+                    - 'titre'
+                    - 'site'
+                    - { property: 'publier', type: 'toggle'}
+
             new:
                 title: "Ajouter un partenaire"
             edit:
@@ -511,10 +547,11 @@ easy_admin:
             form:
                 fields:
                     - 'titre'
+                    - 'site'
                     - 'publier'
                     - {property: 'imageFile', type: 'vich_image'}
         
-        # ------------------------- reseau sociaux ----------------------
+        # ------------------------- FAQ ----------------------
 
         Faq:
             class: App\Entity\Faq
@@ -543,7 +580,7 @@ easy_admin:
                     - { property: 'theme', type: 'choice', type_options: { multiple: false, choices: { 'Evenement': 'evenement', 'Concert': 'concert', 'Carte': 'carte', 'Application': 'application' } } }
                     - publier
             
-             # ------------------------- reseau sociaux ----------------------
+             # ------------------------- a propos ----------------------
 
         Apropos:
             class: App\Entity\Apropos

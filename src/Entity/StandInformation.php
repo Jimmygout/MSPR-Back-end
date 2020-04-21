@@ -65,11 +65,6 @@ class StandInformation
     private $Longitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="standInformation")
-     */
-    private $map;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var \DateTime
      */
@@ -229,17 +224,6 @@ class StandInformation
         return $this;
     }
 
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
-
-        return $this;
-    }
     public function __toString(): string
     {
         return $this->titre;

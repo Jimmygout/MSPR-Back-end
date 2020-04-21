@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
@@ -13,7 +11,6 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *   collectionOperations={"get"={"method"="GET"}},
  *   itemOperations={"get"={"method"="GET"}}
  * )
- * @Vich\Uploadable() 
  */
 class Concert
 {
@@ -23,22 +20,6 @@ class Concert
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $titre;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $designation;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @var \DateTime
-     */
-    private $image;
 
     /**
      * @ORM\Column(type="datetime")
@@ -51,125 +32,25 @@ class Concert
     private $dateFin;
 
     /**
-     * @ORM\Column(type="string", length=255 , nullable=true)
-     */
-    private $lieu;
-
-    /**
-     * @ORM\Column(type="string", length=255 , nullable=true)
-     */
-    private $Type;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true )
-     */
-    private $informationSupp;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $publier;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Scene", inversedBy="concerts")
      */
-    private $Latitude;
+    private $scene;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Chanteur", inversedBy="concerts")
      */
-    private $Longitude;
+    private $chanteur;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="Concert")
-     */
-    private $map;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $AccesHand;
-
-    /**
-     * @Vich\UploadableField(mapping="concert_images", fileNameProperty="image")
-     * @var File
-     */
-    private $imageFile;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $updatedAt;
-
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
-
-        // VERY IMPORTANT:
-        // It is required that at least one field changes if you are using Doctrine,
-        // otherwise the event listeners won't be called and the file is lost
-        if ($image) {
-            // if 'updatedAt' is not defined in your entity, use another property
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
-    {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitre(): ?string
-    {
-        return $this->titre;
-    }
-
-    public function setTitre(string $titre): self
-    {
-        $this->titre = $titre;
-
-        return $this;
-    }
-
-    public function getDesignation(): ?string
-    {
-        return $this->designation;
-    }
-
-    public function setDesignation(string $designation): self
-    {
-        $this->designation = $designation;
-
-        return $this;
-    }
-
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): self
-    {
-        $this->image = $image;
-
-        return $this;
     }
 
     public function getDateDebut(): ?\DateTimeInterface
@@ -196,41 +77,6 @@ class Concert
         return $this;
     }
 
-    public function getLieu(): ?string
-    {
-        return $this->lieu;
-    }
-
-    public function setLieu(string $lieu): self
-    {
-        $this->lieu = $lieu;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->Type;
-    }
-
-    public function setType(string $Type): self
-    {
-        $this->Type = $Type;
-
-        return $this;
-    }
-
-    public function getInformationSupp(): ?string
-    {
-        return $this->informationSupp;
-    }
-
-    public function setInformationSupp(string $informationSupp): self
-    {
-        $this->informationSupp = $informationSupp;
-
-        return $this;
-    }
 
     public function getPublier(): ?bool
     {
@@ -244,55 +90,33 @@ class Concert
         return $this;
     }
 
-    public function getLatitude(): ?string
+    public function getScene(): ?Scene
     {
-        return $this->Latitude;
+        return $this->scene;
     }
 
-    public function setLatitude(string $Latitude): self
+    public function setScene(?Scene $scene): self
     {
-        $this->Latitude = $Latitude;
+        $this->scene = $scene;
 
         return $this;
     }
 
-    public function getLongitude(): ?string
-    {
-        return $this->Longitude;
-    }
-
-    public function setLongitude(string $Longitude): self
-    {
-        $this->Longitude = $Longitude;
-
-        return $this;
-    }
-
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
-
-        return $this;
-    }
     public function __toString(): string
     {
-        return $this->titre;
+        return $this->id;
     }
 
-    public function getAccesHand(): ?bool
+    public function getChanteur(): ?Chanteur
     {
-        return $this->AccesHand;
+        return $this->chanteur;
     }
 
-    public function setAccesHand(bool $AccesHand): self
+    public function setChanteur(?Chanteur $chanteur): self
     {
-        $this->AccesHand = $AccesHand;
+        $this->chanteur = $chanteur;
 
         return $this;
     }
+
 }

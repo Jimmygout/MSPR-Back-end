@@ -66,11 +66,6 @@ class Wc
     private $Latitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="Wc")
-     */
-    private $map;
-
-    /**
      * @Vich\UploadableField(mapping="toilette_images", fileNameProperty="image")
      * @var File
      */
@@ -212,17 +207,6 @@ class Wc
         return $this;
     }
 
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
-
-        return $this;
-    }
     public function __toString(): string
     {
         return $this->Titre;

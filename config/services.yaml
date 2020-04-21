@@ -18,6 +18,7 @@ parameters:
     app.path.parking_images: /uploads/images/parking
     app.path.boutique_images: /uploads/images/boutique_images
     app.path.buvette_images: /uploads/images/buvette_images
+    app.path.chanteur_images: /uploads/images/chanteur_images
 
 services:
     # default configuration for services in *this* file

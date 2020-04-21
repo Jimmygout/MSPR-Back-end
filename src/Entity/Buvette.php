@@ -35,11 +35,6 @@ class Buvette
     private $designation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="buvette")
-     */
-    private $map;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $AccesHand;
@@ -149,18 +144,7 @@ class Buvette
 
         return $this;
     }
-
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
-
-        return $this;
-    }
+    
     public function __toString(): string
     {
         return $this->titre;

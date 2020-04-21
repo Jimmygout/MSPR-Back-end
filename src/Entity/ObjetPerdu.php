@@ -65,11 +65,6 @@ class ObjetPerdu
     private $publier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="objetPerdu")
-     */
-    private $map;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $Longitude;
@@ -217,18 +212,6 @@ class ObjetPerdu
     public function setPublier(bool $publier): self
     {
         $this->publier = $publier;
-
-        return $this;
-    }
-
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
 
         return $this;
     }

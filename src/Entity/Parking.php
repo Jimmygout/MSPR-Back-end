@@ -40,11 +40,6 @@ class Parking
     private $place;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", cascade="all", inversedBy="parking")
-     */
-    private $map;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $AccesHand;
@@ -160,18 +155,6 @@ class Parking
     public function setPlace(int $place): self
     {
         $this->place = $place;
-
-        return $this;
-    }
-
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
 
         return $this;
     }

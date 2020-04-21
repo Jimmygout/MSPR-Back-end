@@ -12,11 +12,14 @@ easy_admin:
                   - {entity: UserSite , icon: 'far fa-user' , label: 'Utilisateurs admin' , permission: 'ROLE_SUPER_ADMIN'}
                   - {entity: UserAppli , icon: 'fas fa-users' , label: 'Utilisateurs Application'}
 
-            - label: 'Informations'
+            - label: 'Informations festival'
+            - {entity: Chanteur , icon: 'fas fa-microphone' , label: 'Chanteurs'}
+            - {entity: Scene , icon: 'fas fa-map-signs' , label: 'Scenes'}
+            
+            - label: 'Informations générales'
             - label: 'Environnement'
               icon: 'fas fa-map-marked-alt'
               children:
-                  - {entity: Map , icon: 'map-marker-alt', label: 'Carte'}
                   - {entity: Buvette , icon: 'glass-cheers' , label: 'Buvettes'}
                   - {entity: Parking , icon: 'parking' , label: 'Parkings'}
                   - {entity: Boutique , icon: 'shopping-basket' , label: 'Boutiques'}
@@ -37,7 +40,7 @@ easy_admin:
             - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
             - {entity: Faq , icon: 'question' , label: 'FAQ'}
             - {entity: Apropos , icon: 'comment-alt' , label: 'À propos'}
-            
-            - label: 'Données Externes'
+
+            - label: 'Données externes'
             - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }
             - {label: 'Coordonnées GPS' ,icon: 'map-marker-alt' , url: 'https://www.coordonnees-gps.fr/' , target: '_blank' }

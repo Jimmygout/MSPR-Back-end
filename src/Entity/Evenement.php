@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -29,10 +31,6 @@ class Evenement
      */
     private $titre;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $designation;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -81,11 +79,6 @@ class Evenement
     private $Longitude;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Map", inversedBy="Evenement")
-     */
-    private $map;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $AccesHand;
@@ -100,6 +93,16 @@ class Evenement
      * @ORM\Column(type="datetime")
      */
     private $updatedAt;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Chanteur", inversedBy="evenements")
+     */
+    private $chanteur;
+
+    public function __construct()
+    {
+        $this->chanteur = new ArrayCollection();
+    }
 
     public function setImageFile(File $image = null)
     {
@@ -148,17 +151,6 @@ class Evenement
         return $this;
     }
 
-    public function getDesignation(): ?string
-    {
-        return $this->designation;
-    }
-
-    public function setDesignation(string $designation): self
-    {
-        $this->designation = $designation;
-
-        return $this;
-    }
 
     public function getImage(): ?string
     {
@@ -268,18 +260,6 @@ class Evenement
         return $this;
     }
 
-    public function getMap(): ?Map
-    {
-        return $this->map;
-    }
-
-    public function setMap(?Map $map): self
-    {
-        $this->map = $map;
-
-        return $this;
-    }
-
     public function getAccesHand(): ?bool
     {
         return $this->AccesHand;
@@ -294,5 +274,31 @@ class Evenement
     public function __toString(): string
     {
         return $this->titre;
+    }
+
+    /**
+     * @return Collection|Chanteur[]
+     */
+    public function getChanteur(): Collection
+    {
+        return $this->chanteur;
+    }
+
+    public function addChanteur(Chanteur $chanteur): self
+    {
+        if (!$this->chanteur->contains($chanteur)) {
+            $this->chanteur[] = $chanteur;
+        }
+
+        return $this;
+    }
+
+    public function removeChanteur(Chanteur $chanteur): self
+    {
+        if ($this->chanteur->contains($chanteur)) {
+            $this->chanteur->removeElement($chanteur);
+        }
+
+        return $this;
     }
 }

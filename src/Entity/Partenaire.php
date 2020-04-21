@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PartenaireRepository")
  * @ApiResource(
@@ -50,6 +51,11 @@ class Partenaire
      * @ORM\Column(type="boolean")
      */
     private $publier;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $site;
 
     public function setImageFile(File $logo = null)
     {
@@ -118,6 +124,18 @@ class Partenaire
     public function setPublier(bool $publier): self
     {
         $this->publier = $publier;
+
+        return $this;
+    }
+
+    public function getSite(): ?string
+    {
+        return $this->site;
+    }
+
+    public function setSite(string $site): self
+    {
+        $this->site = $site;
 
         return $this;
     }
