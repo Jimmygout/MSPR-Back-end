@@ -68,11 +68,18 @@ class UserAuthAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-
+     
+        /** Message si le mail est introuvable **/
         if (!$user) {
             // fail authentication with a custom error
-            throw new CustomUserMessageAuthenticationException('Email could not be found.');
+            throw new CustomUserMessageAuthenticationException('Le compte est introuvable.');
         }
+
+        
+        /** Message si le compte n'a pas encore etait validé */
+        if (in_array('ROLE_ADMIN', $user->getRoles(), true) == false && in_array('ROLE_SUPER_ADMIN', $user->getRoles(), true) == false ) {
+            throw new CustomUserMessageAuthenticationException('Le compte n\'a toujours pas était validé');
+        }        
 
         return $user;
     }
@@ -97,7 +104,8 @@ class UserAuthAuthenticator extends AbstractFormLoginAuthenticator implements Pa
         }
 
         // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('easyadmin'));
+        //throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 
     protected function getLoginUrl()

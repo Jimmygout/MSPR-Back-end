@@ -1,15 +1,85 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Register{% endblock %}
+{% block stylesheets %}
+<style>
+html {
+    display: table;
+    margin: auto;
+}
+body {
+    display: table-cell;
+    vertical-align: middle;
+    background-image: url("https://images.pexels.com/photos/196652/pexels-photo-196652.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940");
+    background-position: center;
+    font-family: cursive;
+}
 
+#login-page {
+   width: 500px;
+}
+
+.alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #07ff42;
+    border-color: #c3e6cb;
+    margin-top: 10px;
+}
+
+</style>
+{% endblock %}
 {% block body %}
-    <h1>Register</h1>
+<div id="login-page" class="row">
+        <div class="col s12 z-depth-4 card-panel">
+            <div class="login-form">
+              {# Messages d'errreurs et d'infos #}
+                {% if app.request.hasPreviousSession %}
+                    {% for message in app.flashes('info') %}
+                        <div class="alert alert-success" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+                {% if error is defined %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                {% if app.user %}
+                        <div class="alert alert-success" role="alert">
+                            Vous éte deja connécté avec le compte {{ app.user.username }}, <a href="{{ path('app_logout') }}">Se deconnecter</a>
+                        </div>
+                {% endif %}
+
+                {# Formulaire d'inscription #}
+                <h3 class="h3 mb-3 font-weight-normal center-align">Inscription</h3>
+
+                {{ form_start(registrationForm) }}
+       
+                    {{ form_row(registrationForm.email, { 'label': 'E-mail' }) }}
+                    {{ form_row(registrationForm.plainPassword, { 'label': 'Mot de passe' }) }}
+                 <br>
+                <div class="center-align">
+                    <button class="btn">Inscription</button>
+                    </div>
+                {{ form_end(registrationForm) }}
+            </div>
+            <div class="row">
+                <div class="input-field col s6 m6 l6">
+                  <p class="margin medium-small"><a href="{{ path('app_login') }}">Connexion</a></p>
+                </div>
+                <div class="input-field col s6 m6 l6">
+                    <p class="margin right-align medium-small"><a href="#">Mot de passe oublié</a></p>
+                </div>          
+              </div>
+        </div>
+    </div>
 {% endblock %}

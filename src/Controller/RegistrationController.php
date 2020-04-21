@@ -36,7 +36,7 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
-            $request->getSession()->getFlashBag()->add('info', "Un administrateur doit valider votre compte pour accéder à la gestion");
+            $request->getSession()->getFlashBag()->add('info', "Un administrateur doit valider votre compte pour accéder à l'administration");
             return $this->redirectToRoute("app_login");
             // do anything else you need here, like send an email
 

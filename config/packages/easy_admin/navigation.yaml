@@ -36,6 +36,7 @@ easy_admin:
             - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}
             - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
             - {entity: Faq , icon: 'question' , label: 'FAQ'}
+            - {entity: Apropos , icon: 'comment-alt' , label: 'À propos'}
             
             - label: 'Données Externes'
             - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }
