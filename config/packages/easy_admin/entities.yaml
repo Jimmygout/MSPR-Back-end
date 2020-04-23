@@ -171,7 +171,7 @@ easy_admin:
                     - { property: 'image', type: 'image', base_path: '%app.path.chanteur_images%' }
                     - 'nom'
                     - 'description'
-                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'publier', type: 'toggle'}
             new:
                 title: "Ajouter un chanteur"
             edit:
@@ -418,7 +418,7 @@ easy_admin:
                     - 'dateDebut'
                     - 'dateFin'
                     - { property: 'image', type: 'image', base_path: '%app.path.information_generale_images%' }
-                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'publier', type: 'toggle'}
             new:
                 title: "Ajouter une alerte generale"
             edit:
@@ -453,7 +453,7 @@ easy_admin:
                     - 'dateDebut'
                     - 'dateFin'
                     - { property: 'image', type: 'image', base_path: '%app.path.information_urgente_images%' }
-                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'publier', type: 'toggle'}
             new:
                 title: "Ajouter une alerte urgente"
             edit:
@@ -513,7 +513,7 @@ easy_admin:
                     - 'titre'
                     - 'type'
                     - 'url'
-                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'publier', type: 'toggle'}
             form:
                 fields:
                     - 'titre'
@@ -567,7 +567,7 @@ easy_admin:
                     - 'question'
                     - 'reponse'
                     - 'theme'
-                    - { property: 'publier', type: 'boolean'}
+                    - { property: 'publier', type: 'toggle'}
             new:
                 title: "Ajouter FAQ"
             edit:

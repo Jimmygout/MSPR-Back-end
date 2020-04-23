@@ -5,12 +5,16 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ConcertRepository")
  * @ApiResource(
  *   collectionOperations={"get"={"method"="GET"}},
  *   itemOperations={"get"={"method"="GET"}}
  * )
+ * @ApiFilter(SearchFilter::class, properties={"chanteur.nom": "partial"})
  */
 class Concert
 {

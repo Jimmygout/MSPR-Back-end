@@ -35,12 +35,12 @@ easy_admin:
                   - {entity: InformationGenerale , icon: 'question-circle' , label: 'Informations générale'}
                   - {entity: InformationUrgente , icon: 'exclamation-triangle' , label: 'Informations urgente'}
               
-            - {entity: Billeterie , icon: 'credit-card' , label: 'Billeterie'}
+            - {entity: Billeterie , icon: 'ticket-alt' , label: 'Billeterie'}
             - {entity: ReseauxSociaux , icon: 'share-alt'  , label: 'Reseaux sociaux'}
             - {entity: Partenaire , icon: 'handshake'  , label: 'Partenaires'}
             - {entity: Faq , icon: 'question' , label: 'FAQ'}
             - {entity: Apropos , icon: 'comment-alt' , label: 'À propos'}
 
             - label: 'Données externes'
-            - {label: 'API' ,icon: 'database' , url: '/admin/api' , target: '_blank' }
+            - {label: 'API' ,icon: 'database' , url: '../../api' , target: '_blank' }
             - {label: 'Coordonnées GPS' ,icon: 'map-marker-alt' , url: 'https://www.coordonnees-gps.fr/' , target: '_blank' }

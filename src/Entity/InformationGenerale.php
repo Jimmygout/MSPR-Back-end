@@ -7,6 +7,9 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use ApiPlatform\Core\Annotation\ApiResource;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\InformationGeneraleRepository")
  * @ApiResource(
@@ -14,6 +17,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
  *   itemOperations={"get"={"method"="GET"}}
  * )
  * @Vich\Uploadable() 
+ * @ApiFilter(BooleanFilter::class, properties={"publier"})
  */
 class InformationGenerale
 {

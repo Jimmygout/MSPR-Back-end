@@ -7,14 +7,18 @@ use Symfony\Component\HttpFoundation\File\File;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PartenaireRepository")
  * @ApiResource(
  *   collectionOperations={"get"={"method"="GET"}},
- *   itemOperations={"get"={"method"="GET"}}
+ *   itemOperations={"get"={"method"="GET"}},
  * )
  * @Vich\Uploadable()
+ * @ApiFilter(BooleanFilter::class, properties={"publier"})
+ * 
  */
 class Partenaire
 {

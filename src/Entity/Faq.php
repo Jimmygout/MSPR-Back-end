@@ -4,13 +4,17 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FaqRepository")
  * @ApiResource(
  *   collectionOperations={"get"={"method"="GET"}},
  *   itemOperations={"get"={"method"="GET"}}
  * )
+ * @ApiFilter(SearchFilter::class, properties={"theme": "partial"})
+ * @ApiFilter(BooleanFilter::class, properties={"publier"})
  */
 class Faq
 {

@@ -1,4 +1,6 @@
 api_platform:
+    # The list of enabled formats. The first one will be the default.
     resource: .
     type: api_platform
-    prefix: admin/api
+    prefix: api
+    
