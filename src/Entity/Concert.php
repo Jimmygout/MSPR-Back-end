@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
@@ -12,7 +13,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ORM\Entity(repositoryClass="App\Repository\ConcertRepository")
  * @ApiResource(
  *   collectionOperations={"get"={"method"="GET"}},
- *   itemOperations={"get"={"method"="GET"}}
+ *   itemOperations={"get"={"method"="GET"}},
+ *   normalizationContext = {
+ *          "groups" = { "concert" }
+ *     }
  * )
  * @ApiFilter(SearchFilter::class, properties={"chanteur.nom": "partial"})
  */
@@ -22,31 +26,37 @@ class Concert
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"chanteur", "concert"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"chanteur", "concert"})
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"chanteur", "concert"})
      */
     private $dateFin;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"chanteur", "concert"})
      */
     private $publier;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Scene", inversedBy="concerts")
+     * @Groups({"chanteur", "concert"})
      */
     private $scene;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Chanteur", inversedBy="concerts")
+     * @Groups({"concert"})
      */
     private $chanteur;
 

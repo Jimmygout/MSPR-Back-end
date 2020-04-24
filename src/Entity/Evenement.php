@@ -8,12 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EvenementRepository")
  * @ApiResource(
  *   collectionOperations={"get"={"method"="GET"}},
- *   itemOperations={"get"={"method"="GET"}}
+ *   itemOperations={"get"={"method"="GET"}},
+ *   normalizationContext = {
+ *          "groups" = {"event"}
+ *     }
  * )
  * @Vich\Uploadable() 
  */
@@ -23,11 +27,13 @@ class Evenement
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"event"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"event"})
      */
     private $titre;
 
@@ -35,51 +41,61 @@ class Evenement
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @var \DateTime
+     * @Groups({ "event"})
      */
     private $image;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({ "event"})
      */
     private $dateDebut;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({ "event"})
      */
     private $dateFin;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"event"})
      */
     private $lieu;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"event"})
      */
     private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"event"})
      */
     private $information;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"event"})
      */
     private $publier;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"event"})
      */
     private $Latitude;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"event"})
      */
     private $Longitude;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"event"})
      */
     private $AccesHand;
 
@@ -96,6 +112,7 @@ class Evenement
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Chanteur", inversedBy="evenements")
+     * @Groups({"event"})
      */
     private $chanteur;
 

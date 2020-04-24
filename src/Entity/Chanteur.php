@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
@@ -15,7 +16,10 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 /**
  * @ApiResource(
  *   collectionOperations={"get"={"method"="GET"}},
- *   itemOperations={"get"={"method"="GET"}}
+ *   itemOperations={"get"={"method"="GET"}},
+ *   normalizationContext = {
+ *          "groups" = { "chanteur" }
+ *     }
  * )
  * @ORM\Entity(repositoryClass="App\Repository\ChanteurRepository")
  * @Vich\Uploadable()
@@ -27,56 +31,67 @@ class Chanteur
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"chanteur", "concert", "event"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"chanteur", "concert", "event"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"chanteur", "concert", "event"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"chanteur", "concert"})
      */
     private $facebook;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"chanteur"})
      */
     private $twitter;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"chanteur"})
      */
     private $insta;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"chanteur"})
      */
     private $youtube;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"chanteur"})
      */
     private $snapchat;
 
     /**
      * @ORM\Column(type="string", length=255 , nullable=true)
+     * @Groups({"chanteur"})
      */
     private $site;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"chanteur", "concert"})
      */
     private $publier;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"chanteur", "concert"})
      * @var \DateTime
      */
     private $image;
@@ -95,11 +110,13 @@ class Chanteur
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Concert", mappedBy="chanteur")
+     * @Groups({"chanteur"})
      */
     private $concerts;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Evenement", mappedBy="chanteur")
+     * @Groups({"chanteur"})
      */
     private $evenements;
 
